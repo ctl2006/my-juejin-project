@@ -59,7 +59,7 @@
 
         <!-- 会员 -->
          <div class="flex items-center w-auto mr-2">
-          <el-button type="text" class="text-[#8A919f] hover:text-inherit">
+          <el-button type="text" class="text-[#8A919f]">
           <img class="w-7 h-auto" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ffd3e238ee7f46eab42bf88af17f5528~tplv-k3u1fbpfcp-image.image#?w=25&h=26&s=5968&e=svg&a=1&b=dacbbc" alt="">
             会员
           </el-button>
@@ -75,22 +75,22 @@
       <!-- 头部结束 -->
 
       <el-container>
+
         <!-- 侧边栏开始 -->
          <!-- 侧边栏的最小高度被设置为页面总高度减去60像素。 -->
-        <el-aside width="200px" class="bg-green-100 w-65 min-h-[calc(100vh-60px)] pt-5 pl-15">
-          <div class="w-165px h-auto py-3 bg-red-500 rounded-md flex flex-col items-center justify-center"
-          >
-            <div
-            v-for="item in asideMenu"
-            :key="item.text"
-            :index="item.path"
-            class=" bg-green-500 w-[90%] h-45px rounded-md flex items-center"
-            >
-            <el-icon>
-              <component :is="item.icon" />
-            </el-icon>
-            <span>{{ item.text }}</span>
-            </div>
+        <el-aside class="bg-green-100 w-65 min-h-[calc(100vh-60px)] pt-5 pl-15">
+          <div class="w-175px h-auto py-3 bg-white rounded-md flex flex-col items-center justify-center">
+          <!-- <router-link>可以设置hover效果，且实现不刷新页面也可跳转路由效果
+            to属性设置跳转的路由路径，path属性设置路由别名，name属性设置路由名称 -->
+              <router-link
+              v-for="item in asideMenu"
+              :key="item.text"
+              :to="item.path"
+              class="w-[90%] h-45px flex items-center text-gray-600 hover:text-blue-500 rounded-md"
+              >
+              <div v-html="item.svg" class="w-5 h-5 mx-2"></div>
+              <span>{{ item.text }}</span>
+              </router-link>
           </div>
         </el-aside>
         <!-- 侧边栏结束 -->
@@ -109,6 +109,7 @@
 <script setup>
 import router from "@/router/index.js";
 import { reactive } from "vue";
+import { Search } from "@element-plus/icons-vue";
 
 
 const data = reactive({
@@ -128,19 +129,18 @@ const headerMenu = [
 ];
 
 const asideMenu = [
-  { text: '关注', path: '/', icon: Star }, // 星星图标
-  { text: '综合', path: '/ai-coding', icon: Layout }, // 布局图标
-  { text: '后端', path: '/沸点', icon: Server }, // 服务器图标
-  { text: '前端', path: '/courses', icon: Monitor }, // 显示器图标
-  { text: 'Android', path: '/live', icon: Smartphone }, // 手机图标
-  { text: 'iOS', path: '/events', icon: Apple }, // 苹果图标
-  { text: '人工智能', path: '/ai-practice', icon: Brain }, // 大脑图标
-  { text: '开发工具', path: '/app', icon: Tools }, // 工具图标
-  { text: '代码人生', path: '/plugins', icon: Coffee }, // 咖啡图标
-  { text: '阅读', path: '/plugins', icon: Book }, // 书籍图标
-  { text: '排行榜', path: '/plugins', icon: Ranking }, // 排行榜图标
+  { text: '关注', path: '/',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: '综合', path: '/ai-coding',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: '后端', path: '/沸点' ,svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>`},
+  { text: '前端', path: '/courses',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: 'Android', path: '/live',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: 'iOS', path: '/events',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: '人工智能', path: '/ai-practice',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: '开发工具', path: '/app',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: '代码人生', path: '/plugins',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: '阅读', path: '/plugins',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
+  { text: '排行榜', path: '/plugins',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
 ];
-
 
 </script>
 
