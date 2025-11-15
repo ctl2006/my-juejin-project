@@ -22,7 +22,6 @@
             class="el-menu-demo h-full"
             mode="horizontal"
             :ellipsis="false"
-            @select="handleSelect"
             router
             :default-active="router.currentRoute.value.path"
           >
@@ -30,6 +29,7 @@
             v-for="item in headerMenu" 
             :key="item.text" 
             :index="item.path"
+            :to="`${item.path}?id=${item.id}`"
             >{{ item.text }}</el-menu-item>
         </el-menu>
         <!-- 导航结束 -->
@@ -79,23 +79,14 @@
         <!-- 侧边栏开始 -->
          <!-- 侧边栏的最小高度被设置为页面总高度减去60像素。 -->
         <el-aside class="bg-green-100 w-65 min-h-[calc(100vh-60px)] pt-5 pl-15">
-          <div class="w-175px h-auto py-3 bg-white rounded-md flex flex-col items-center justify-center">
-          <!-- <router-link>可以设置hover效果，且实现不刷新页面也可跳转路由效果
-            to属性设置跳转的路由路径，path属性设置路由别名，name属性设置路由名称 -->
-              <router-link
-              v-for="item in asideMenu"
-              :key="item.text"
-              :to="item.path"
-              class="w-[90%] h-45px flex items-center text-gray-600 hover:text-blue-500 rounded-md"
-              >
-              <div v-html="item.svg" class="w-5 h-5 mx-2"></div>
-              <span>{{ item.text }}</span>
-              </router-link>
-          </div>
+          <AsideMenu />
         </el-aside>
         <!-- 侧边栏结束 -->
 
         <!-- 主体内容开始 -->
+
+        <!-- 当 URL 变化时，Vue Router 会根据预定义的路由配置，
+         将对应的组件渲染到 <router-view></router-view> 所在的位置。 -->
         <el-main class="bg-blue-50 h-full min-h-[calc(100vh-60px)]">
           <router-view></router-view>
         </el-main>
@@ -110,6 +101,8 @@
 import router from "@/router/index.js";
 import { reactive } from "vue";
 import { Search } from "@element-plus/icons-vue";
+import AsideMenu from "@/components/AsideMenu.vue";
+import { id } from "element-plus/es/locales.mjs";
 
 
 const data = reactive({
@@ -117,18 +110,19 @@ const data = reactive({
 });
 
 const headerMenu = [
-  { text: '首页', path: '/' },
-  { text: 'AI Coding', path: '/ai-coding' },
-  { text: '沸点', path: '/沸点' },
-  { text: '课程', path: '/courses' },
-  { text: '直播', path: '/live' },
-  { text: '活动', path: '/events' },
-  { text: 'AI刷题', path: '/ai-practice' },
-  { text: 'APP', path: '/app' },
+  { id:1, text: '首页', path: '/' },
+  { id:2, text: 'AI Coding', path: '/ai-coding' },
+  { id:3, text: '沸点', path: '/hotpoint' },
+  { id:4, text: '课程', path: '/courses' },
+  { id:5, text: '直播', path: '/live' },
+  { id:6, text: '活动', path: '/events' },
+  { id:7, text: 'AI刷题', path: '/ai-practice' },
+  { id:8, text: 'APP', path: '/app' },
   { text: '插件', path: '/plugins' }
 ];
 
-const asideMenu = [
+const asideMenu = {
+'/':[
   { text: '关注', path: '/',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
   { text: '综合', path: '/ai-coding',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
   { text: '后端', path: '/沸点' ,svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>`},
@@ -140,7 +134,8 @@ const asideMenu = [
   { text: '代码人生', path: '/plugins',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
   { text: '阅读', path: '/plugins',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
   { text: '排行榜', path: '/plugins',svg:`<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M283.84 867.84 512 747.776l228.16 119.936a6.4 6.4 0 0 0 9.28-6.72l-43.52-254.08 184.512-179.904a6.4 6.4 0 0 0-3.52-10.88l-255.104-37.12L517.76 147.904a6.4 6.4 0 0 0-11.52 0L392.192 379.072l-255.104 37.12a6.4 6.4 0 0 0-3.52 10.88L318.08 606.976l-43.584 254.08a6.4 6.4 0 0 0 9.28 6.72z"></path></svg>` },
-];
+]
+};
 
 </script>
 
