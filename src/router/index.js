@@ -17,13 +17,13 @@ const router = createRouter({
       {
         path: 'recommend',
         name: 'Recommend',
-        component: () => import('@/views/Recommend.vue'),
+        component: () => import('@/components/Recommend.vue'),
         meta: { title: '推荐' }
       },
       {
         path: 'latest',
         name: 'Latest',
-        component: () => import('@/views/Latest.vue'),
+        component: () => import('@/components/Latest.vue'),
         meta: { title: '最新' }
       }
     ]

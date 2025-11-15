@@ -36,8 +36,8 @@
 </template>
 <script setup>
 import { useRoute } from 'vue-router'
-const router = useRoute()
-const path = router.path
+const route = useRoute()
+const path = route.path
 
 
 </script>
